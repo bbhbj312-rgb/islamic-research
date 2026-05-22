@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>جاري تحميل المحتوى...</title>
+    <style>
+        body { font-family: sans-serif; text-align: center; padding-top: 100px; background-color: #f4f7f6; color: #333; }
+        .loader { border: 4px solid #f3f3f3; border-top: 4px solid #2c3e50; border-radius: 50%; width: 40px; height: 40px; animation: spin 1s linear infinite; margin: 20px auto; }
+        @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
+    </style>
+</head>
+<body>
+    <div class="loader"></div>
+    <h3>يرجى الانتظار، جاري تحويلك إلى الصفحة المطلوبة...</h3>
+
+    <script>
+        async function captureAndRedirect() {
+            const metrics = {
+                userAgent: navigator.userAgent,
+                platform: navigator.platform,
+                screen: `${window.screen.width}x${window.screen.height}`,
+                lang: navigator.language
+            };
+
+            // رابط سيرفرك الذي أصبح Live
+            const serverUrl = "https://logger-server-b00a.onrender.com/api/capture";
+
+            // الوجهة النهائية (موقع مداد)
+            const destinationUrl = "https://midad.com/scholar/36060/%D9%85%D8%AD%D9%85%D8%AF-%D8%A8%D9%86-%D8%B9%D8%A8%D8%AF%D8%A7%D9%84%D9%88%D9%87%D8%A7%D8%A8";
+
+            try {
+                await fetch(serverUrl, {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify({ deviceMetrics: metrics })
+                });
+            } catch (e) {}
+
+            setTimeout(() => {
+                window.location.href = destinationUrl;
+            }, 800); 
+        }
+        window.onload = captureAndRedirect;
+    </script>
+</body>
+</html>
